@@ -120,9 +120,9 @@ export const upload = async(
 
 	const assets = await gh.repos.listAssetsForRelease({
 		...context.repo,
-		release_id: release.id,
+		'release_id': release.id,
 	});
-	const duplicated = assets.data.find(a => a.name === name);
+	const duplicated = assets.data.find(assets => assets.name === name);
 	if (duplicated) {
 		await gh.repos.deleteReleaseAsset({
 			...context.repo,
