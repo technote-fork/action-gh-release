@@ -1,12 +1,17 @@
 
-# action gh-release [![](https://github.com/softprops/action-gh-release/workflows/Main/badge.svg)](https://github.com/softprops/action-gh-release/actions)
+# action gh-release
+
+[![Build Status](https://github.com/technote-fork/action-gh-release/workflows/Build/badge.svg)](https://github.com/technote-fork/action-gh-release/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/technote-fork/action-gh-release/blob/master/LICENSE)
 
 > A GitHub Action for creating GitHub Releases on Linux, Windows, and OSX virtual environments
 
 ![Screenshot](demo.png)
 
-
 > **⚠️ Note:** To use this action, you must have access to the [GitHub Actions](https://github.com/features/actions) feature. GitHub Actions are currently only available in public beta. You can [apply for the GitHub Actions beta here](https://github.com/features/actions/signup/).
+
+<!-- START doctoc -->
+<!-- END doctoc -->
 
 ## 🤸 Usage
 
@@ -30,7 +35,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
       - name: Release
-        uses: softprops/action-gh-release@v1
+        uses: technote-fork/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -53,7 +58,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
       - name: Release
-        uses: softprops/action-gh-release@v1
+        uses: technote-fork/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -86,7 +91,7 @@ jobs:
       - name: Test
         run: cat Release.txt
       - name: Release
-        uses: softprops/action-gh-release@v1
+        uses: technote-fork/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: Release.txt
@@ -112,7 +117,7 @@ jobs:
       - name: Test
         run: cat Release.txt
       - name: Release
-        uses: softprops/action-gh-release@v1
+        uses: technote-fork/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
@@ -144,7 +149,7 @@ jobs:
       - name: Generate Changelog
         run: echo "# Good things have arrived" > ${{ github.workflow }}-CHANGELOG.txt
       - name: Release
-        uses: softprops/action-gh-release@v1
+        uses: technote-fork/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
           body_path: ${{ github.workflow }}-CHANGELOG.txt
@@ -180,4 +185,5 @@ The following are *required* as `step.env` keys
 
 > **⚠️ Note:** This action was previously implemented as a docker container, limiting its use to GitHub Actions Linux virtual environments only. With recent releases, we now support cross platform usage. You'll need to remove the `docker://` prefix in these versions
 
-Doug Tangren (softprops) 2019
+Doug Tangren (softprops) 2019  
+Technote 2019
