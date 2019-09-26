@@ -35,7 +35,7 @@ async function run(): Promise<void> {
 		const rel = await release(config, new GitHubReleaser(gh));
 		if (config.input_files) {
 			for (const path of config.input_files) {
-				await upload(gh, rel.upload_url, path);
+				await upload(gh, rel, path);
 			}
 		}
 		console.log(`🎉 Release ready at ${rel.html_url}`);

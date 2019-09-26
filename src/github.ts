@@ -1,4 +1,4 @@
-import { GitHub } from '@actions/github';
+import { context, GitHub } from '@actions/github';
 import { Response, ReposUploadReleaseAssetResponse } from '@octokit/rest';
 import { Config } from './util';
 import { lstatSync, readFileSync } from 'fs';
@@ -13,6 +13,7 @@ export interface ReleaseAsset {
 }
 
 export interface Release {
+	id: number;
 	'upload_url': string;
 	'html_url': string;
 	'tag_name': string;
@@ -111,13 +112,26 @@ export const asset = (path: string): ReleaseAsset => {
 
 export const upload = async(
 	gh: GitHub,
-	url: string,
+	release: Release,
 	path: string,
 ): Promise<Response<ReposUploadReleaseAssetResponse>> => {
 	const {name, size, mime, file} = asset(path);
 	console.log(`⬆️ Uploading ${name}...`);
+
+	const assets = await gh.repos.listAssetsForRelease({
+		...context.repo,
+		release_id: release.id,
+	});
+	const duplicated = assets.data.find(a => a.name === name);
+	if (duplicated) {
+		await gh.repos.deleteReleaseAsset({
+			...context.repo,
+			'asset_id': duplicated.id,
+		});
+	}
+
 	return await gh.repos.uploadReleaseAsset({
-		url,
+		url: release.upload_url,
 		headers: {
 			'content-length': size,
 			'content-type': mime,
@@ -177,7 +191,7 @@ export const release = async(
 				console.log(
 					`⚠️ GitHub release failed with status: ${error.status}, retrying...`,
 				);
-				return release(config, releaser);
+				return await release(config, releaser);
 			}
 		} else {
 			console.log(
