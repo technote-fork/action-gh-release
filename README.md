@@ -182,5 +182,5 @@ The following are *required* as `step.env` keys
 
 > **⚠️ Note:** This action was previously implemented as a docker container, limiting its use to GitHub Actions Linux virtual environments only. With recent releases, we now support cross platform usage. You'll need to remove the `docker://` prefix in these versions
 
-Doug Tangren (softprops) 2019
+Doug Tangren (softprops) 2019  
 Technote 2019
