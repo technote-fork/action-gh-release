@@ -1,9 +1,7 @@
-on:
-  push:
-    tags:
-      - '*'
-      - '*/*'
+on: create
+
 name: Release
+
 jobs:
   release:
     name: Release GitHub Actions
@@ -13,10 +11,6 @@ jobs:
         uses: actions/checkout@master
         with:
           fetch-depth: 3
-      - name: Check package version
-        uses: technote-space/ga-package-version-checker@v1
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Release GitHub Actions
         uses: technote-space/release-github-actions@test/v1
