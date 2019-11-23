@@ -1,7 +1,7 @@
 
 # action gh-release
 
-[![Build Status](https://github.com/technote-fork/action-gh-release/workflows/Build/badge.svg)](https://github.com/technote-fork/action-gh-release/actions)
+[![CI Status](https://github.com/technote-fork/action-gh-release/workflows/CI/badge.svg)](https://github.com/technote-fork/action-gh-release/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/technote-fork/action-gh-release/blob/master/LICENSE)
 
 > A GitHub Action for creating GitHub Releases on Linux, Windows, and OSX virtual environments
