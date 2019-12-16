@@ -46,9 +46,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
       - name: Release
-        uses: technote-fork/action-gh-release@v1
+        uses: technote-fork/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
-        env:
+        with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
@@ -69,8 +69,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
       - name: Release
-        uses: technote-fork/action-gh-release@v1
-        env:
+        uses: technote-fork/action-gh-release@v2
+        with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
@@ -102,11 +102,10 @@ jobs:
       - name: Test
         run: cat Release.txt
       - name: Release
-        uses: technote-fork/action-gh-release@v1
+        uses: technote-fork/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: Release.txt
-        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
@@ -128,13 +127,12 @@ jobs:
       - name: Test
         run: cat Release.txt
       - name: Release
-        uses: technote-fork/action-gh-release@v1
+        uses: technote-fork/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
             Release.txt
             LICENSE
-        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
@@ -160,17 +158,22 @@ jobs:
       - name: Generate Changelog
         run: echo "# Good things have arrived" > ${{ github.workflow }}-CHANGELOG.txt
       - name: Release
-        uses: technote-fork/action-gh-release@v1
+        uses: technote-fork/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
           body_path: ${{ github.workflow }}-CHANGELOG.txt
-        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ### 💅 Customizing
 
 #### inputs
+
+The following are *required* as `step.with` keys
+
+| Name           | Description                          |
+|----------------|--------------------------------------|
+| `GITHUB_TOKEN` | GITHUB_TOKEN as provided by `secrets`|
 
 The following are optional as `step.with` keys
 
@@ -184,17 +187,6 @@ The following are optional as `step.with` keys
 | `name`      | String  | Name of the release. defaults to tag name                       |
 
 💡When providing a `body` and `body_path` at the same time, `body_path` will be attempted first, then falling back on `body` if the path can not be read from.
-
-#### environment variables
-
-The following are *required* as `step.env` keys
-
-| Name           | Description                          |
-|----------------|--------------------------------------|
-| `GITHUB_TOKEN` | GITHUB_TOKEN as provided by `secrets`|
-
-
-> **⚠️ Note:** This action was previously implemented as a docker container, limiting its use to GitHub Actions Linux virtual environments only. With recent releases, we now support cross platform usage. You'll need to remove the `docker://` prefix in these versions
 
 Doug Tangren (softprops) 2019  
 Technote 2019
