@@ -1,8 +1,14 @@
 # https://help.github.com/en/articles/metadata-syntax-for-github-actions
 name: 'GH Release'
+
 description: 'Github Action for creating Github Releases'
+
 author: 'softprops'
+
 inputs:
+  GITHUB_TOKEN:
+    description: Secret GitHub API token to use for making API requests.
+    required: true
   body:
     description: 'Note-worthy description of changes in release'
     required: false
@@ -21,11 +27,11 @@ inputs:
   files:
     description: 'Newline-delimited list of path globs for asset files to upload'
     required: false
-env:
-  'GITHUB_TOKEN': 'As provided by Github Actions'
+
 runs:
   using: 'node12'
   main: 'lib/main.js'
+
 branding:
   color: 'green'
   icon: 'package'
