@@ -1,6 +1,6 @@
 {
   "name": "action-gh-release",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "private": true,
   "description": "GitHub Action for creating GitHub Releases",
   "main": "lib/main.js",
@@ -22,9 +22,9 @@
   "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.2.0",
-    "@actions/github": "^1.1.0",
-    "@technote-space/filter-github-action": "^0.1.11",
-    "@technote-space/github-action-helper": "^0.6.9",
+    "@actions/github": "^2.0.0",
+    "@technote-space/filter-github-action": "^0.1.12",
+    "@technote-space/github-action-helper": "^0.6.25",
     "glob": "^7.1.6",
     "mime": "^2.4.4"
   },
@@ -32,15 +32,15 @@
     "@types/glob": "^7.1.1",
     "@types/jest": "^24.0.23",
     "@types/mime": "^2.0.1",
-    "@types/node": "^12.12.14",
-    "@typescript-eslint/eslint-plugin": "^2.9.0",
-    "@typescript-eslint/parser": "^2.9.0",
+    "@types/node": "^12.12.18",
+    "@typescript-eslint/eslint-plugin": "^2.11.0",
+    "@typescript-eslint/parser": "^2.11.0",
     "assert": "^2.0.0",
     "eslint": "^6.7.2",
     "jest": "^24.9.0",
     "jest-circus": "^24.9.0",
     "ts-jest": "^24.2.0",
-    "typescript": "^3.7.2"
+    "typescript": "^3.7.3"
   },
   "scripts": {
     "build": "tsc",
