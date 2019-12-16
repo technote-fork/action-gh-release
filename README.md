@@ -20,7 +20,6 @@
   - [📝 External release notes](#-external-release-notes)
   - [💅 Customizing](#-customizing)
     - [inputs](#inputs)
-    - [environment variables](#environment-variables)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
