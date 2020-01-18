@@ -1,27 +1,20 @@
 import path from 'path';
-import { parseConfig, isTag } from './util';
-import { release, upload, GitHubReleaser } from './github';
 import { setFailed } from '@actions/core';
 import { context, GitHub } from '@actions/github';
-import { Context } from '@actions/github/lib/context';
 import { isTargetEvent } from '@technote-space/filter-github-action';
-import { Logger, Utils, ContextHelper } from '@technote-space/github-action-helper';
-
-const {isSemanticVersioningTagName} = Utils;
-const {showActionInfo, getTagName}  = ContextHelper;
+import { Logger, ContextHelper } from '@technote-space/github-action-helper';
+import { parseConfig, isTag } from './util';
+import { release, upload, GitHubReleaser } from './github';
+import { TARGET_EVENTS } from './constant';
 
 /**
  * run
  */
 async function run(): Promise<void> {
 	const logger = new Logger();
-	showActionInfo(path.resolve(__dirname, '..'), logger, context);
+	ContextHelper.showActionInfo(path.resolve(__dirname, '..'), logger, context);
 
-	if (!isTargetEvent({
-		'push': [
-			(context: Context): boolean => isSemanticVersioningTagName(getTagName(context)),
-		],
-	}, context)) {
+	if (!isTargetEvent(TARGET_EVENTS, context)) {
 		logger.info('This is not target event.');
 		return;
 	}
