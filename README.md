@@ -1,9 +1,9 @@
-
 # action gh-release
 
-[![CI Status](https://github.com/technote-fork/action-gh-release/workflows/CI/badge.svg)](https://github.com/technote-fork/action-gh-release/actions)
-[![codecov](https://codecov.io/gh/technote-fork/action-gh-release/branch/master/graph/badge.svg)](https://codecov.io/gh/technote-fork/action-gh-release)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/technote-fork/action-gh-release/blob/master/LICENSE)
+[![CI Status](https://github.com/technote-space/action-gh-release/workflows/CI/badge.svg)](https://github.com/technote-space/action-gh-release/actions)
+[![codecov](https://codecov.io/gh/technote-space/action-gh-release/branch/master/graph/badge.svg)](https://codecov.io/gh/technote-space/action-gh-release)
+[![CodeFactor](https://www.codefactor.io/repository/github/technote-space/action-gh-release/badge)](https://www.codefactor.io/repository/github/technote-space/action-gh-release)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/technote-space/action-gh-release/blob/master/LICENSE)
 
 > A GitHub Action for creating GitHub Releases on Linux, Windows, and OSX virtual environments
 
@@ -46,7 +46,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
       - name: Release
-        uses: technote-fork/action-gh-release@v2
+        uses: technote-space/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -69,7 +69,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
       - name: Release
-        uses: technote-fork/action-gh-release@v2
+        uses: technote-space/action-gh-release@v2
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -102,7 +102,7 @@ jobs:
       - name: Test
         run: cat Release.txt
       - name: Release
-        uses: technote-fork/action-gh-release@v2
+        uses: technote-space/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: Release.txt
@@ -127,7 +127,7 @@ jobs:
       - name: Test
         run: cat Release.txt
       - name: Release
-        uses: technote-fork/action-gh-release@v2
+        uses: technote-space/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
@@ -158,7 +158,7 @@ jobs:
       - name: Generate Changelog
         run: echo "# Good things have arrived" > ${{ github.workflow }}-CHANGELOG.txt
       - name: Release
-        uses: technote-fork/action-gh-release@v2
+        uses: technote-space/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
           body_path: ${{ github.workflow }}-CHANGELOG.txt
