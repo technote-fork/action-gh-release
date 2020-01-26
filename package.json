@@ -1,16 +1,16 @@
 {
-  "name": "action-gh-release",
+  "name": "@technote-space/action-gh-release",
   "version": "2.0.1",
   "private": true,
   "description": "GitHub Action for creating GitHub Releases",
   "main": "lib/main.js",
-  "homepage": "https://github.com/technote-fork/action-gh-release",
+  "homepage": "https://github.com/technote-space/action-gh-release",
   "repository": {
     "type": "git",
-    "url": "https://github.com/technote-fork/action-gh-release.git"
+    "url": "https://github.com/technote-space/action-gh-release.git"
   },
   "bugs": {
-    "url": "https://github.com/technote-fork/action-gh-release/issues"
+    "url": "https://github.com/technote-space/action-gh-release/issues"
   },
   "keywords": [
     "actions"
