@@ -1,6 +1,6 @@
 {
   "name": "@technote-space/action-gh-release",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "private": true,
   "description": "GitHub Action for creating GitHub Releases",
   "main": "lib/main.js",
