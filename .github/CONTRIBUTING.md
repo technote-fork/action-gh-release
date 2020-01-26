@@ -1,7 +1,7 @@
 # Contributing
-[issues]: https://github.com/technote-fork/action-gh-release/issues
-[fork]: https://github.com/technote-fork/action-gh-release/fork
-[pr]: https://github.com/technote-fork/action-gh-release/compare
+[issues]: https://github.com/technote-space/action-gh-release/issues
+[fork]: https://github.com/technote-space/action-gh-release/fork
+[pr]: https://github.com/technote-space/action-gh-release/compare
 [eslint]: https://eslint.org/
 [jest]: https://jestjs.io/
 [code-of-conduct]: CODE_OF_CONDUCT.md
