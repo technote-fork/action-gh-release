@@ -13,15 +13,16 @@
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**
+<details>
+<summary>Details</summary>
 
 - [🤸 Usage](#-usage)
   - [🚥 Limit releases to pushes to tags](#-limit-releases-to-pushes-to-tags)
   - [⬆️ Uploading release assets](#-uploading-release-assets)
   - [📝 External release notes](#-external-release-notes)
   - [💅 Customizing](#-customizing)
-    - [inputs](#inputs)
 
+</details>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## 🤸 Usage
