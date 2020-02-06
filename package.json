@@ -3,7 +3,10 @@
   "version": "2.0.3",
   "private": true,
   "description": "GitHub Action for creating GitHub Releases",
-  "main": "lib/main.js",
+  "files": [
+    "lib",
+    "action.yml"
+  ],
   "homepage": "https://github.com/technote-space/action-gh-release",
   "repository": {
     "type": "git",
@@ -17,7 +20,11 @@
   ],
   "author": "softprops",
   "contributors": [
-    "Technote <technote.space@gmail.com> (https://technote.space)"
+    {
+      "name": "Technote",
+      "email": "technote.space@gmail.com",
+      "url": "https://technote.space"
+    }
   ],
   "license": "MIT",
   "dependencies": {
