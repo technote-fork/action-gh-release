@@ -1,5 +1,5 @@
-import { context, GitHub } from '@actions/github';
-import { Response, ReposUploadReleaseAssetResponse } from '@octokit/rest';
+import { Context } from '@actions/github/lib/context';
+import { Octokit } from '@octokit/rest';
 import { Config } from './util';
 import { lstatSync, readFileSync } from 'fs';
 import { getType } from 'mime';
@@ -46,12 +46,12 @@ export interface Releaser {
  * GitHubReleaser
  */
 export class GitHubReleaser implements Releaser {
-	github: GitHub;
+	github: Octokit;
 
 	/**
-	 * @param {GitHub} github github
+	 * @param {Octokit} github github
 	 */
-	constructor(github: GitHub) {
+	constructor(github: Octokit) {
 		this.github = github;
 	}
 
@@ -111,26 +111,27 @@ export const asset = (path: string): ReleaseAsset => {
 };
 
 export const upload = async(
-	gh: GitHub,
+	octokit: Octokit,
+	context: Context,
 	release: Release,
 	path: string,
-): Promise<Response<ReposUploadReleaseAssetResponse>> => {
+): Promise<Octokit.Response<Octokit.ReposUploadReleaseAssetResponse>> => {
 	const {name, size, mime, file} = asset(path);
 	console.log(`⬆️ Uploading ${name}...`);
 
-	const assets = await gh.repos.listAssetsForRelease({
+	const assets     = await octokit.repos.listAssetsForRelease({
 		...context.repo,
 		'release_id': release.id,
 	});
 	const duplicated = assets.data.find(assets => assets.name === name);
 	if (duplicated) {
-		await gh.repos.deleteReleaseAsset({
+		await octokit.repos.deleteReleaseAsset({
 			...context.repo,
 			'asset_id': duplicated.id,
 		});
 	}
 
-	return await gh.repos.uploadReleaseAsset({
+	return await octokit.repos.uploadReleaseAsset({
 		url: release.upload_url,
 		headers: {
 			'content-length': size,
@@ -143,10 +144,11 @@ export const upload = async(
 
 export const release = async(
 	config: Config,
+	context: Context,
 	releaser: Releaser,
 ): Promise<Release> => {
 	const [owner, repo] = config.github_repository.split('/');
-	const tag = config.github_ref.replace('refs/tags/', '');
+	const tag           = config.github_ref.replace('refs/tags/', '');
 	try {
 		// you can't get a an existing draft by tag
 		// so we must find one in the list of all releases
@@ -171,11 +173,11 @@ export const release = async(
 		// eslint-disable-next-line no-magic-numbers
 		if (error.status === 404) {
 			try {
-				const name = config.input_name || tag;
-				const body = config.input_body;
-				const draft = config.input_draft;
+				const name       = config.input_name || tag;
+				const body       = config.input_body;
+				const draft      = config.input_draft;
 				const prerelease = config.input_prerelease;
-				console.log(`👩‍🏭 Creating new GitHub release for tag ${tag}...`);
+				console.log(`👩‍🏭 Creating new Octokit release for tag ${tag}...`);
 				const release = await releaser.createRelease({
 					owner,
 					repo,
@@ -189,13 +191,13 @@ export const release = async(
 			} catch (error) {
 				// presume a race with competing metrix runs
 				console.log(
-					`⚠️ GitHub release failed with status: ${error.status}, retrying...`,
+					`⚠️ Octokit release failed with status: ${error.status}, retrying...`,
 				);
-				return await release(config, releaser);
+				return await release(config, context, releaser);
 			}
 		} else {
 			console.log(
-				`⚠️ Unexpected error fetching GitHub release for tag ${config.github_ref}: ${error}`,
+				`⚠️ Unexpected error fetching Octokit release for tag ${config.github_ref}: ${error}`,
 			);
 			throw error;
 		}
