@@ -1,6 +1,6 @@
 {
   "name": "@technote-space/action-gh-release",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "private": true,
   "description": "GitHub Action for creating GitHub Releases",
   "files": [
@@ -40,8 +40,8 @@
     "@types/jest": "^25.1.2",
     "@types/mime": "^2.0.1",
     "@types/node": "^13.7.0",
-    "@typescript-eslint/eslint-plugin": "^2.19.0",
-    "@typescript-eslint/parser": "^2.19.0",
+    "@typescript-eslint/eslint-plugin": "^2.19.2",
+    "@typescript-eslint/parser": "^2.19.2",
     "assert": "^2.0.0",
     "eslint": "^6.8.0",
     "jest": "^25.1.0",
