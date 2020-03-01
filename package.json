@@ -30,8 +30,8 @@
   "dependencies": {
     "@actions/core": "^1.2.2",
     "@actions/github": "^2.1.1",
-    "@technote-space/filter-github-action": "^0.2.4",
-    "@technote-space/github-action-helper": "^1.2.1",
+    "@technote-space/filter-github-action": "^0.2.5",
+    "@technote-space/github-action-helper": "^1.2.2",
     "glob": "^7.1.6",
     "mime": "^2.4.4"
   },
