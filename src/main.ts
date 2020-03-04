@@ -1,4 +1,4 @@
-import path from 'path';
+import { resolve } from 'path';
 import { setFailed } from '@actions/core';
 import { Context } from '@actions/github/lib/context';
 import { isTargetEvent } from '@technote-space/filter-github-action';
@@ -13,7 +13,7 @@ import { TARGET_EVENTS } from './constant';
 async function run(): Promise<void> {
 	const logger  = new Logger();
 	const context = new Context();
-	ContextHelper.showActionInfo(path.resolve(__dirname, '..'), logger, context);
+	ContextHelper.showActionInfo(resolve(__dirname, '..'), logger, context);
 
 	if (!isTargetEvent(TARGET_EVENTS, context)) {
 		logger.info('This is not target event.');
