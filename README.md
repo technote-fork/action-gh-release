@@ -51,8 +51,6 @@ jobs:
       - name: Release
         uses: technote-space/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 You can also use push config tag filter
@@ -73,8 +71,6 @@ jobs:
         uses: actions/checkout@v2
       - name: Release
         uses: technote-space/action-gh-release@v2
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 
@@ -109,7 +105,6 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: Release.txt
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 Below is an example of uploading more than one asset with a GitHub release
@@ -136,7 +131,6 @@ jobs:
           files: |
             Release.txt
             LICENSE
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 > **⚠️ Note:** Notice the `|` in the yaml syntax above ☝️. That let's you effectively declare a multi-line yaml string. You can learn more about multi-line yaml syntax [here](https://yaml-multiline.info)
@@ -165,7 +159,6 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         with:
           body_path: ${{ github.workflow }}-CHANGELOG.txt
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ### 💅 Customizing
