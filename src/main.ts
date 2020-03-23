@@ -26,7 +26,7 @@ async function run(): Promise<void> {
 		throw new Error('⚠️ GitHub Releases requires a tag');
 	}
 
-	const octokit  = Utils.getOctokit(config.github_token);
+	const octokit  = Utils.getOctokit();
 	const releaser = await release(config, context, new GitHubReleaser(octokit));
 	if (config.input_files) {
 		for (const path of config.input_files) {
