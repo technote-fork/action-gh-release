@@ -2,7 +2,6 @@ import * as glob from 'glob';
 import { lstatSync } from 'fs';
 
 export interface Config {
-	'github_token': string;
 	'github_ref': string;
 	'github_repository': string;
 	// user provided
@@ -29,7 +28,6 @@ export const parseInputFiles = (files: string): string[] => {
 
 export const parseConfig = (env: Env): Config => {
 	return {
-		'github_token': env.GITHUB_TOKEN || '',
 		'github_ref': env.GITHUB_REF || '',
 		'github_repository': env.GITHUB_REPOSITORY || '',
 		'input_name': env.INPUT_NAME,

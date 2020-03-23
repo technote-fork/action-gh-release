@@ -22,7 +22,6 @@ describe('util', () => {
 			assert.deepStrictEqual(parseConfig({}), {
 				'github_ref': '',
 				'github_repository': '',
-				'github_token': '',
 				'input_body': undefined,
 				'input_body_path': undefined,
 				'input_draft': false,
