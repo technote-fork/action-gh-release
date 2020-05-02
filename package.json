@@ -28,17 +28,17 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.2.3",
+    "@actions/core": "^1.2.4",
     "@actions/github": "^2.1.1",
     "@technote-space/filter-github-action": "^0.2.11",
     "@technote-space/github-action-helper": "^2.0.7",
     "glob": "^7.1.6",
-    "mime": "^2.4.4"
+    "mime": "^2.4.5"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
-    "@technote-space/release-github-actions-cli": "^1.6.0",
+    "@technote-space/release-github-actions-cli": "^1.6.1",
     "@types/glob": "^7.1.1",
     "@types/jest": "^25.2.1",
     "@types/mime": "^2.0.1",
@@ -48,9 +48,9 @@
     "assert": "^2.0.0",
     "eslint": "^6.8.0",
     "husky": "^4.2.5",
-    "jest": "^25.4.0",
-    "jest-circus": "^25.4.0",
-    "lint-staged": "^10.1.7",
+    "jest": "^25.5.3",
+    "jest-circus": "^25.5.3",
+    "lint-staged": "^10.2.2",
     "ts-jest": "^25.4.0",
     "typescript": "^3.8.3"
   },
