@@ -5,8 +5,12 @@ import {RestEndpointMethods} from '@octokit/plugin-rest-endpoint-methods/dist-ty
 import {
   ReposListReleaseAssetsResponseData,
   ReposUploadReleaseAssetResponseData,
+  ReposListReleasesResponseData,
+  ReposCreateReleaseResponseData,
+  ReposUpdateReleaseResponseData,
+  ReposGetReleaseByTagResponseData,
 } from '@octokit/types/dist-types/generated/Endpoints';
-import {Config} from './util';
+import {Config, releaseBody} from './util';
 import {lstatSync, readFileSync} from 'fs';
 import {getType} from 'mime';
 import {basename} from 'path';
@@ -30,7 +34,7 @@ export interface Releaser {
     owner: string;
     repo: string;
     tag: string;
-  }): Promise<Release>;
+  }): Promise<ReposGetReleaseByTagResponseData>;
 
   createRelease(params: {
     owner: string;
@@ -40,7 +44,24 @@ export interface Releaser {
     body: string | undefined;
     draft: boolean | undefined;
     prerelease: boolean | undefined;
-  }): Promise<Release>;
+  }): Promise<ReposCreateReleaseResponseData>;
+
+  updateRelease(params: {
+    owner: string;
+    repo: string;
+    'release_id': number;
+    'tag_name': string;
+    'target_commitish': string;
+    name: string;
+    body: string | undefined;
+    draft: boolean | undefined;
+    prerelease: boolean | undefined;
+  }): Promise<ReposUpdateReleaseResponseData>;
+
+  allReleases(params: {
+    owner: string;
+    repo: string;
+  }): Promise<ReposListReleasesResponseData>;
 }
 
 /**
@@ -58,19 +79,19 @@ export class GitHubReleaser implements Releaser {
 
   /**
    * @param {object} params params
-   * @return {Promise<{ data: Release }>} release
+   * @return {Promise<ReposGetReleaseByTagResponseData>} release
    */
   async getReleaseByTag(params: {
     owner: string;
     repo: string;
     tag: string;
-  }): Promise<Release> {
+  }): Promise<ReposGetReleaseByTagResponseData> {
     return (await (this.octokit as RestEndpointMethods).repos.getReleaseByTag(params)).data;
   }
 
   /**
    * @param {object} params params
-   * @return {Promise<{ data: Release }>} release
+   * @return {Promise<ReposCreateReleaseResponseData>} release
    */
   async createRelease(params: {
     owner: string;
@@ -80,8 +101,40 @@ export class GitHubReleaser implements Releaser {
     body?: string | undefined;
     draft?: boolean | undefined;
     prerelease?: boolean | undefined;
-  }): Promise<Release> {
+  }): Promise<ReposCreateReleaseResponseData> {
     return (await (this.octokit as RestEndpointMethods).repos.createRelease(params)).data;
+  }
+
+  /**
+   * @param {object} params params
+   * @return {Promise<ReposUpdateReleaseResponseData>} release
+   */
+  async updateRelease(params: {
+    owner: string;
+    repo: string;
+    'release_id': number;
+    'tag_name': string;
+    'target_commitish': string;
+    name: string;
+    body: string | undefined;
+    draft: boolean | undefined;
+    prerelease: boolean | undefined;
+  }): Promise<ReposUpdateReleaseResponseData> {
+    return (await (this.octokit as RestEndpointMethods).repos.updateRelease(params)).data;
+  }
+
+  /**
+   * @param {object} params params
+   * @return {Promise<ReposListReleasesResponseData>} releases
+   */
+  async allReleases(params: {
+    owner: string;
+    repo: string;
+  }): Promise<ReposListReleasesResponseData> {
+    return (await (this.octokit.paginate as PaginateInterface)(
+      (this.octokit as RestEndpointMethods).repos.listReleases,
+      params,
+    )).map(item => item as ReposListReleasesResponseData[number]);
   }
 }
 
@@ -136,35 +189,57 @@ export const upload = async(
   })).data;
 };
 
+const getRelease = async(tag: string, config: Config, context: Context, releaser: Releaser): Promise<ReposListReleasesResponseData[number] | ReposGetReleaseByTagResponseData> => {
+  // you can't get a an existing draft by tag
+  // so we must find one in the list of all releases
+  const releases = await releaser.allReleases({
+    ...context.repo,
+  });
+  const release  = releases.find(release => release.tag_name === tag);
+  if (release) {
+    return release;
+  }
+
+  return releaser.getReleaseByTag({
+    ...context.repo,
+    tag,
+  });
+};
+
 export const release = async(
   config: Config,
   context: Context,
   releaser: Releaser,
 ): Promise<Release> => {
-  const [owner, repo] = config.github_repository.split('/');
-  const tag           = config.github_ref.replace('refs/tags/', '');
+  const tag = config.github_ref.replace('refs/tags/', '');
   try {
-    return await releaser.getReleaseByTag({
-      owner,
-      repo,
-      tag,
-    });
+    const release = await getRelease(tag, config, context, releaser);
+    if (config.input_update_draft_flag && config.input_update_draft_mode !== release.draft) {
+      return await releaser.updateRelease({
+        ...context.repo,
+        'release_id': release.id,
+        'tag_name': tag,
+        'target_commitish': release.target_commitish,
+        name: config.input_name || tag,
+        body: `${release.body}\n${releaseBody(config)}`,
+        draft: config.input_update_draft_mode,
+        prerelease: config.input_prerelease,
+      });
+    }
+
+    return release;
   } catch (error) {
     // eslint-disable-next-line no-magic-numbers
     if (error.status === 404) {
       try {
-        const name       = config.input_name || tag;
-        const body       = config.input_body;
-        const prerelease = config.input_prerelease;
         console.log(`👩‍🏭 Creating new Octokit release for tag ${tag}...`);
         return await releaser.createRelease({
-          owner,
-          repo,
+          ...context.repo,
           'tag_name': tag,
-          name,
-          body,
-          draft: false,
-          prerelease,
+          name: config.input_name || tag,
+          body: releaseBody(config),
+          draft: config.input_draft,
+          prerelease: config.input_prerelease,
         });
       } catch (error) {
         // presume a race with competing metrix runs

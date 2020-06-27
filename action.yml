@@ -19,6 +19,15 @@ inputs:
   name:
     description: 'Gives the release a custom name. Defaults to tag name'
     required: false
+  draft:
+    description: 'Creates release as draft. Defaults to false'
+    required: false
+  update-draft-flag:
+    description: 'Updates release draft flag. Defaults to false'
+    required: false
+  update-draft-mode:
+    description: 'Updates release as draft. Defaults to false'
+    required: false
   prerelease:
     description: 'Identify the release as a prerelease. Defaults to false'
     required: false
