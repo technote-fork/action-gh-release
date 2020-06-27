@@ -83,9 +83,9 @@ export class GitHubReleaser implements Releaser {
     repo: string;
     'tag_name': string;
     name: string;
-    body: string | undefined;
-    draft: boolean | undefined;
-    prerelease: boolean | undefined;
+    body?: string | undefined;
+    draft?: boolean | undefined;
+    prerelease?: boolean | undefined;
   }): Promise<Release> {
     return (await (this.octokit as RestEndpointMethods).repos.createRelease(params)).data;
   }
