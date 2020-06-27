@@ -177,6 +177,9 @@ The following are optional as `step.with` keys
 |-------------|---------|-----------------------------------------------------------------|
 | `body`      | String  | Text communicating notable changes in this release              |
 | `body_path` | String  | Path to load text communicating notable changes in this release |
+| `draft`     | Boolean | Indicator of whether or not to create release as draft             |
+| `update_draft_flag`     | Boolean | Indicator of whether or not to update draft             |
+| `update_draft_mode`     | Boolean | Indicator of whether or not to update release as draft             |
 | `prerelease`| Boolean | Indicator of whether or not is a prerelease                     |
 | `files`     | String  | Newline-delimited globs of paths to assets to upload for release|
 | `name`      | String  | Name of the release. defaults to tag name                       |
