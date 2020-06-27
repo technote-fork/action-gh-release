@@ -238,7 +238,7 @@ export const release = async(
           'tag_name': tag,
           name: config.input_name || tag,
           body: releaseBody(config),
-          draft: config.input_create_draft_mode,
+          draft: config.input_draft,
           prerelease: config.input_prerelease,
         });
       } catch (error) {

@@ -26,7 +26,7 @@ describe('parseConfig', () => {
       'input_body': undefined,
       'input_body_path': undefined,
       'input_prerelease': false,
-      'input_create_draft_mode': false,
+      'input_draft': false,
       'input_files': [],
       'input_name': undefined,
       'input_update_draft_flag': false,

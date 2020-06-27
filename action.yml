@@ -19,7 +19,7 @@ inputs:
   name:
     description: 'Gives the release a custom name. Defaults to tag name'
     required: false
-  create-draft-mode:
+  draft:
     description: 'Creates release as draft. Defaults to false'
     required: false
   update-draft-flag:
