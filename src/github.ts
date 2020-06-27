@@ -5,6 +5,7 @@ import {RestEndpointMethods} from '@octokit/plugin-rest-endpoint-methods/dist-ty
 import {
   ReposListReleaseAssetsResponseData,
   ReposUploadReleaseAssetResponseData,
+  ReposListReleasesResponseData,
 } from '@octokit/types/dist-types/generated/Endpoints';
 import {Config} from './util';
 import {lstatSync, readFileSync} from 'fs';
@@ -41,6 +42,11 @@ export interface Releaser {
     draft: boolean | undefined;
     prerelease: boolean | undefined;
   }): Promise<Release>;
+
+  allReleases(params: {
+    owner: string;
+    repo: string;
+  }): Promise<Release[]>;
 }
 
 /**
@@ -82,6 +88,20 @@ export class GitHubReleaser implements Releaser {
     prerelease?: boolean | undefined;
   }): Promise<Release> {
     return (await (this.octokit as RestEndpointMethods).repos.createRelease(params)).data;
+  }
+
+  /**
+   * @param {object} params params
+   * @return {Promise<Release[]>} releases
+   */
+  async allReleases(params: {
+    owner: string;
+    repo: string;
+  }): Promise<Release[]> {
+    return (await (this.octokit.paginate as PaginateInterface)(
+      (this.octokit as RestEndpointMethods).repos.listReleases,
+      params,
+    )).map(item => item as ReposListReleasesResponseData[number]);
   }
 }
 
