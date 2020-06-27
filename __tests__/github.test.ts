@@ -85,12 +85,53 @@ describe('release', () => {
   disableNetConnect(nock);
   const releaser = new GitHubReleaser(octokit);
 
-  it('should get release', async() => {
+  it('should get draft release', async() => {
     nock('https://api.github.com')
-      .get('/repos/hello/world/releases/tags/v1.2.3')
-      .reply(200, getApiFixture(fixturesDir, 'repos.releases.tags.get'));
+      .get('/repos/hello/world/releases')
+      .reply(200, getApiFixture(fixturesDir, 'repos.releases.list'));
 
     const response = await release(parseConfig({
+      'GITHUB_REPOSITORY': 'hello/world',
+      'GITHUB_REF': 'refs/tags/v1.0.0',
+    }), context, releaser);
+
+    expect(response).toHaveProperty('id');
+    expect(response).toHaveProperty('upload_url');
+    expect(response).toHaveProperty('html_url');
+    expect(response).toHaveProperty('tag_name');
+  });
+
+  it('should get release', async() => {
+    nock('https://api.github.com')
+      .get('/repos/hello/world/releases')
+      .reply(200, getApiFixture(fixturesDir, 'repos.releases.list'))
+      .get('/repos/hello/world/releases/tags/v1.2.3')
+      .reply(200, getApiFixture(fixturesDir, 'repos.releases.tags.get.draft'));
+
+    const response = await release(parseConfig({
+      'INPUT_UPDATE_DRAFT_FLAG': 'true',
+      'INPUT_UPDATE_DRAFT_MODE': 'true',
+      'GITHUB_REPOSITORY': 'hello/world',
+      'GITHUB_REF': 'refs/tags/v1.2.3',
+    }), context, releaser);
+
+    expect(response).toHaveProperty('id');
+    expect(response).toHaveProperty('upload_url');
+    expect(response).toHaveProperty('html_url');
+    expect(response).toHaveProperty('tag_name');
+  });
+
+  it('should update release', async() => {
+    nock('https://api.github.com')
+      .get('/repos/hello/world/releases')
+      .reply(200, getApiFixture(fixturesDir, 'repos.releases.list'))
+      .get('/repos/hello/world/releases/tags/v1.2.3')
+      .reply(200, getApiFixture(fixturesDir, 'repos.releases.tags.get.draft'))
+      .patch('/repos/hello/world/releases/1')
+      .reply(200, getApiFixture(fixturesDir, 'repos.releases.update'));
+
+    const response = await release(parseConfig({
+      'INPUT_UPDATE_DRAFT_FLAG': 'true',
       'GITHUB_REPOSITORY': 'hello/world',
       'GITHUB_REF': 'refs/tags/v1.2.3',
     }), context, releaser);
@@ -103,6 +144,8 @@ describe('release', () => {
 
   it('should create release', async() => {
     nock('https://api.github.com')
+      .get('/repos/hello/world/releases')
+      .reply(200, [])
       .get('/repos/hello/world/releases/tags/v1.2.3')
       .reply(404)
       .post('/repos/hello/world/releases')
@@ -120,6 +163,10 @@ describe('release', () => {
   });
 
   it('should retry to create release', async() => {
+    nock('https://api.github.com')
+      .persist()
+      .get('/repos/hello/world/releases')
+      .reply(200, []);
     nock('https://api.github.com')
       .get('/repos/hello/world/releases/tags/v1.2.3')
       .reply(404)
@@ -189,6 +236,42 @@ describe('GitHubReleaser', () => {
       expect(release).toHaveProperty('upload_url');
       expect(release).toHaveProperty('html_url');
       expect(release).toHaveProperty('tag_name');
+    });
+  });
+
+  describe('updateRelease', () => {
+    it('should update release', async() => {
+      nock('https://api.github.com')
+        .patch('/repos/hello/world/releases/1')
+        .reply(200, getApiFixture(fixturesDir, 'repos.releases.update'));
+
+      const release = await releaser.updateRelease({
+        ...context.repo,
+        'tag_name': 'v1.2.3',
+        'release_id': 1,
+        'target_commitish': '',
+        name: '',
+        body: '',
+        draft: true,
+        prerelease: false,
+      });
+
+      expect(release).toHaveProperty('id');
+      expect(release).toHaveProperty('upload_url');
+      expect(release).toHaveProperty('html_url');
+      expect(release).toHaveProperty('tag_name');
+    });
+  });
+
+  describe('allReleases', () => {
+    it('should get releases', async() => {
+      nock('https://api.github.com')
+        .get('/repos/hello/world/releases')
+        .reply(200, getApiFixture(fixturesDir, 'repos.releases.list'));
+
+      const releases = await releaser.allReleases({...context.repo});
+
+      expect(releases).toHaveLength(3);
     });
   });
 });
