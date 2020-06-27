@@ -1,6 +1,9 @@
 /* eslint-disable no-magic-numbers */
-import {isTag, paths, parseConfig, parseInputFiles} from '../src/util';
+import path from 'path';
 import * as assert from 'assert';
+import {isTag, paths, parseConfig, parseInputFiles} from '../src/util';
+
+const fixturesDir = path.resolve(__dirname, 'fixtures');
 
 describe('util', () => {
   describe('parseInputFiles', () => {
@@ -24,7 +27,6 @@ describe('util', () => {
         'github_repository': '',
         'input_body': undefined,
         'input_body_path': undefined,
-        'input_draft': false,
         'input_prerelease': false,
         'input_files': [],
         'input_name': undefined,
@@ -42,8 +44,8 @@ describe('util', () => {
 
   describe('paths', () => {
     it('resolves files given a set of paths', async() => {
-      assert.deepStrictEqual(paths(['tests/data/**/*']), [
-        'tests/data/foo/bar.txt',
+      assert.deepStrictEqual(paths([path.join(fixturesDir, 'data/**/*')]), [
+        path.join(fixturesDir, 'data/foo/bar.txt'),
       ]);
     });
   });
