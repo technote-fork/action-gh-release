@@ -19,7 +19,7 @@ export interface ReleaseAsset {
   name: string;
   mime: string;
   size: number;
-  file: string;
+  file: Buffer;
 }
 
 export interface Release {
@@ -147,7 +147,7 @@ export const asset = (path: string): ReleaseAsset => {
     name: basename(path),
     mime: mimeOrDefault(path),
     size: lstatSync(path).size,
-    file: readFileSync(path).toString(),
+    file: readFileSync(path),
   };
 };
 
@@ -181,7 +181,7 @@ export const upload = async(
     baseUrl: release.upload_url.replace(/\/repos\/.+$/, ''),
     'release_id': release.id,
     name,
-    data: file,
+    data: file.toString('binary'),
     headers: {
       'content-length': size,
       'content-type': mime,
