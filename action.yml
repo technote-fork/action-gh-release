@@ -35,10 +35,10 @@ inputs:
     description: 'Newline-delimited list of path globs for asset files to upload'
     required: false
 
-runs:
-  using: 'node12'
-  main: 'lib/main.js'
-
 branding:
   color: 'green'
   icon: 'package'
+
+runs:
+  using: node12
+  main: lib/main.js
