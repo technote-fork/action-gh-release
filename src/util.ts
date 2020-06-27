@@ -9,7 +9,6 @@ export interface Config {
   'input_body'?: string;
   'input_body_path'?: string;
   'input_files'?: string[];
-  'input_draft'?: boolean;
   'input_prerelease'?: boolean;
 }
 
@@ -34,7 +33,6 @@ export const parseConfig = (env: Env): Config => {
     'input_body': env.INPUT_BODY,
     'input_body_path': env.INPUT_BODY_PATH,
     'input_files': parseInputFiles(env.INPUT_FILES || ''),
-    'input_draft': env.INPUT_DRAFT === 'true',
     'input_prerelease': env.INPUT_PRERELEASE === 'true',
   };
 };
