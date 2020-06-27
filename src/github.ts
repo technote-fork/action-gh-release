@@ -144,6 +144,19 @@ export const release = async(
   const [owner, repo] = config.github_repository.split('/');
   const tag           = config.github_ref.replace('refs/tags/', '');
   try {
+    // you can't get a an existing draft by tag
+    // so we must find one in the list of all releases
+    if (config.input_draft) {
+      const releases = await releaser.allReleases({
+        owner,
+        repo,
+      });
+      const release  = releases.find(release => release.tag_name === tag);
+      if (release) {
+        return release;
+      }
+    }
+
     return await releaser.getReleaseByTag({
       owner,
       repo,
@@ -155,6 +168,7 @@ export const release = async(
       try {
         const name       = config.input_name || tag;
         const body       = config.input_body;
+        const draft      = config.input_draft;
         const prerelease = config.input_prerelease;
         console.log(`👩‍🏭 Creating new Octokit release for tag ${tag}...`);
         return await releaser.createRelease({
@@ -163,7 +177,7 @@ export const release = async(
           'tag_name': tag,
           name,
           body,
-          draft: false,
+          draft,
           prerelease,
         });
       } catch (error) {
