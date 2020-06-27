@@ -181,7 +181,9 @@ export const upload = async(
     baseUrl: release.upload_url.replace(/\/repos\/.+$/, ''),
     'release_id': release.id,
     name,
-    data: file.toString('binary'),
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    data: file,
     headers: {
       'content-length': size,
       'content-type': mime,
