@@ -53,13 +53,13 @@ export interface Releaser {
  * GitHubReleaser
  */
 export class GitHubReleaser implements Releaser {
-  github: Octokit;
+  octokit: Octokit;
 
   /**
-   * @param {Octokit} github github
+   * @param {Octokit} octokit octokit
    */
-  constructor(github: Octokit) {
-    this.github = github;
+  constructor(octokit: Octokit) {
+    this.octokit = octokit;
   }
 
   /**
@@ -71,7 +71,7 @@ export class GitHubReleaser implements Releaser {
     repo: string;
     tag: string;
   }): Promise<Release> {
-    return (await (this.github as RestEndpointMethods).repos.getReleaseByTag(params)).data;
+    return (await (this.octokit as RestEndpointMethods).repos.getReleaseByTag(params)).data;
   }
 
   /**
@@ -87,7 +87,7 @@ export class GitHubReleaser implements Releaser {
     draft: boolean | undefined;
     prerelease: boolean | undefined;
   }): Promise<Release> {
-    return (await (this.github as RestEndpointMethods).repos.createRelease(params)).data;
+    return (await (this.octokit as RestEndpointMethods).repos.createRelease(params)).data;
   }
 
   /**
@@ -98,8 +98,8 @@ export class GitHubReleaser implements Releaser {
     owner: string;
     repo: string;
   }): Promise<Release[]> {
-    return (await (this.github.paginate as PaginateInterface)(
-      (this.github as RestEndpointMethods).repos.listReleases,
+    return (await (this.octokit.paginate as PaginateInterface)(
+      (this.octokit as RestEndpointMethods).repos.listReleases,
       params,
     )).map(item => item as ReposListReleasesResponseData[number]);
   }
