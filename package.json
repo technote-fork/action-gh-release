@@ -1,6 +1,6 @@
 {
   "name": "@technote-space/action-gh-release",
-  "version": "2.3.11",
+  "version": "2.4.0",
   "private": true,
   "description": "GitHub Action for creating GitHub Releases",
   "files": [
@@ -30,8 +30,12 @@
   "dependencies": {
     "@actions/core": "^1.2.5",
     "@actions/github": "^4.0.0",
+    "@octokit/plugin-paginate-rest": "^2.4.0",
+    "@octokit/plugin-rest-endpoint-methods": "^4.2.0",
+    "@octokit/types": "^5.5.0",
     "@technote-space/filter-github-action": "^0.5.3",
     "@technote-space/github-action-helper": "^4.0.1",
+    "@technote-space/github-action-log-helper": "^0.1.0",
     "glob": "^7.1.6",
     "mime": "^2.4.6"
   },
