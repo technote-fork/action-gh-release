@@ -2,18 +2,18 @@ import {Context} from '@actions/github/lib/context';
 import {Octokit} from '@technote-space/github-action-helper/dist/types';
 import {PaginateInterface} from '@octokit/plugin-paginate-rest';
 import {RestEndpointMethods} from '@octokit/plugin-rest-endpoint-methods/dist-types/generated/method-types';
-import {
-  ReposListReleaseAssetsResponseData,
-  ReposUploadReleaseAssetResponseData,
-  ReposListReleasesResponseData,
-  ReposCreateReleaseResponseData,
-  ReposUpdateReleaseResponseData,
-  ReposGetReleaseByTagResponseData,
-} from '@octokit/types/dist-types/generated/Endpoints';
+import {components} from '@octokit/openapi-types';
 import {Config, releaseBody} from './util';
 import {lstatSync, readFileSync} from 'fs';
 import {getType} from 'mime';
 import {basename} from 'path';
+
+type ReposListReleaseAssetsResponseData = components['schemas']['release-asset'];
+type ReposUploadReleaseAssetResponseData = components['schemas']['release-asset'];
+type ReposListReleasesResponseData = components['schemas']['release'];
+type ReposCreateReleaseResponseData = components['schemas']['release'];
+type ReposUpdateReleaseResponseData = components['schemas']['release'];
+type ReposGetReleaseByTagResponseData = components['schemas']['release'];
 
 export interface ReleaseAsset {
   name: string;
@@ -61,7 +61,7 @@ export interface Releaser {
   allReleases(params: {
     owner: string;
     repo: string;
-  }): Promise<ReposListReleasesResponseData>;
+  }): Promise<Array<ReposListReleasesResponseData>>;
 }
 
 /**
@@ -125,16 +125,16 @@ export class GitHubReleaser implements Releaser {
 
   /**
    * @param {object} params params
-   * @return {Promise<ReposListReleasesResponseData>} releases
+   * @return {Promise<Array<ReposListReleasesResponseData>>} releases
    */
   async allReleases(params: {
     owner: string;
     repo: string;
-  }): Promise<ReposListReleasesResponseData> {
+  }): Promise<Array<ReposListReleasesResponseData>> {
     return (await (this.octokit.paginate as PaginateInterface)(
       (this.octokit as RestEndpointMethods).repos.listReleases,
       params,
-    )).map(item => item as ReposListReleasesResponseData[number]);
+    )).map(item => item as ReposListReleasesResponseData);
   }
 }
 
@@ -160,7 +160,7 @@ export const upload = async(
   const {name, size, mime, file} = asset(path);
   console.log(`⬆️ Uploading ${name}...`);
 
-  const assets: ReposListReleaseAssetsResponseData = await (octokit.paginate as PaginateInterface)(
+  const assets: Array<ReposListReleaseAssetsResponseData> = await (octokit.paginate as PaginateInterface)(
     (octokit as RestEndpointMethods).repos.listReleaseAssets,
     {
       ...context.repo,
@@ -191,7 +191,7 @@ export const upload = async(
   })).data;
 };
 
-const getRelease = async(tag: string, config: Config, context: Context, releaser: Releaser): Promise<ReposListReleasesResponseData[number] | ReposGetReleaseByTagResponseData> => {
+const getRelease = async(tag: string, config: Config, context: Context, releaser: Releaser): Promise<ReposListReleasesResponseData | ReposGetReleaseByTagResponseData> => {
   // you can't get a an existing draft by tag
   // so we must find one in the list of all releases
   const releases = await releaser.allReleases({
