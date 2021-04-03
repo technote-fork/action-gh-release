@@ -43,14 +43,14 @@
     "@octokit/plugin-rest-endpoint-methods": "^5.0.0",
     "@octokit/types": "^6.13.0",
     "@technote-space/filter-github-action": "^0.5.22",
-    "@technote-space/github-action-helper": "^5.2.4",
+    "@technote-space/github-action-helper": "^5.2.5",
     "@technote-space/github-action-log-helper": "^0.1.21",
     "glob": "^7.1.6",
     "mime": "^2.5.2"
   },
   "devDependencies": {
-    "@commitlint/cli": "^12.0.1",
-    "@commitlint/config-conventional": "^12.0.1",
+    "@commitlint/cli": "^12.1.1",
+    "@commitlint/config-conventional": "^12.1.1",
     "@technote-space/github-action-test-helper": "^0.7.4",
     "@technote-space/release-github-actions-cli": "^1.8.4",
     "@types/glob": "^7.1.3",
