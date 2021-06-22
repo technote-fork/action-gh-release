@@ -1,7 +1,5 @@
 import {Context} from '@actions/github/lib/context';
 import {Octokit} from '@technote-space/github-action-helper/dist/types';
-import {PaginateInterface} from '@octokit/plugin-paginate-rest';
-import {RestEndpointMethods} from '@octokit/plugin-rest-endpoint-methods/dist-types/generated/method-types';
 import {components} from '@octokit/openapi-types';
 import {Config, releaseBody} from './util';
 import {lstatSync, readFileSync} from 'fs';
@@ -86,7 +84,7 @@ export class GitHubReleaser implements Releaser {
     repo: string;
     tag: string;
   }): Promise<ReposGetReleaseByTagResponseData> {
-    return (await (this.octokit as RestEndpointMethods).repos.getReleaseByTag(params)).data;
+    return (await this.octokit.rest.repos.getReleaseByTag(params)).data;
   }
 
   /**
@@ -102,7 +100,7 @@ export class GitHubReleaser implements Releaser {
     draft?: boolean | undefined;
     prerelease?: boolean | undefined;
   }): Promise<ReposCreateReleaseResponseData> {
-    return (await (this.octokit as RestEndpointMethods).repos.createRelease(params)).data;
+    return (await this.octokit.rest.repos.createRelease(params)).data;
   }
 
   /**
@@ -120,7 +118,7 @@ export class GitHubReleaser implements Releaser {
     draft: boolean | undefined;
     prerelease: boolean | undefined;
   }): Promise<ReposUpdateReleaseResponseData> {
-    return (await (this.octokit as RestEndpointMethods).repos.updateRelease(params)).data;
+    return (await this.octokit.rest.repos.updateRelease(params)).data;
   }
 
   /**
@@ -131,8 +129,8 @@ export class GitHubReleaser implements Releaser {
     owner: string;
     repo: string;
   }): Promise<Array<ReposListReleasesResponseData>> {
-    return (await (this.octokit.paginate as PaginateInterface)(
-      (this.octokit as RestEndpointMethods).repos.listReleases,
+    return (await this.octokit.paginate(
+      this.octokit.rest.repos.listReleases,
       params,
     )).map(item => item as ReposListReleasesResponseData);
   }
@@ -160,8 +158,8 @@ export const upload = async(
   const {name, size, mime, file} = asset(path);
   console.log(`⬆️ Uploading ${name}...`);
 
-  const assets: Array<ReposListReleaseAssetsResponseData> = await (octokit.paginate as PaginateInterface)(
-    (octokit as RestEndpointMethods).repos.listReleaseAssets,
+  const assets: Array<ReposListReleaseAssetsResponseData> = await octokit.paginate(
+    octokit.rest.repos.listReleaseAssets,
     {
       ...context.repo,
       'release_id': release.id,
@@ -170,13 +168,13 @@ export const upload = async(
 
   const duplicated = assets.find(assets => assets.name === name);
   if (duplicated) {
-    await (octokit as RestEndpointMethods).repos.deleteReleaseAsset({
+    await octokit.rest.repos.deleteReleaseAsset({
       ...context.repo,
       'asset_id': duplicated.id,
     });
   }
 
-  return (await (octokit as RestEndpointMethods).repos.uploadReleaseAsset({
+  return (await octokit.rest.repos.uploadReleaseAsset({
     ...context.repo,
     baseUrl: release.upload_url.replace(/\/repos\/.+$/, ''),
     'release_id': release.id,
