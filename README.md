@@ -1,9 +1,9 @@
 # action gh-release
 
 [![CI Status](https://github.com/technote-space/action-gh-release/workflows/CI/badge.svg)](https://github.com/technote-space/action-gh-release/actions)
-[![codecov](https://codecov.io/gh/technote-space/action-gh-release/branch/master/graph/badge.svg)](https://codecov.io/gh/technote-space/action-gh-release)
+[![codecov](https://codecov.io/gh/technote-space/action-gh-release/branch/main/graph/badge.svg)](https://codecov.io/gh/technote-space/action-gh-release)
 [![CodeFactor](https://www.codefactor.io/repository/github/technote-space/action-gh-release/badge)](https://www.codefactor.io/repository/github/technote-space/action-gh-release)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/technote-space/action-gh-release/blob/master/LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/technote-space/action-gh-release/blob/main/LICENSE)
 
 > A GitHub Action for creating GitHub Releases on Linux, Windows, and OSX virtual environments
 
