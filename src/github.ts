@@ -228,7 +228,7 @@ export const release = async(
     }
 
     return release;
-  } catch (error) {
+  } catch (error: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
     // eslint-disable-next-line no-magic-numbers
     if (error.status === 404) {
       try {
@@ -241,7 +241,7 @@ export const release = async(
           draft: config.input_draft,
           prerelease: config.input_prerelease,
         });
-      } catch (error) {
+      } catch (error: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
         // presume a race with competing metrix runs
         console.log(
           `⚠️ Octokit release failed with status: ${error.status}, retrying...`,
