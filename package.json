@@ -37,15 +37,15 @@
     "update": "npm_config_yes=true npx npm-check-updates -u --timeout 100000 && yarn install && yarn upgrade && yarn audit"
   },
   "dependencies": {
-    "@actions/core": "^1.8.0",
-    "@actions/github": "^5.0.1",
+    "@actions/core": "^1.8.2",
+    "@actions/github": "^5.0.3",
     "@octokit/plugin-paginate-rest": "^2.17.0",
     "@octokit/plugin-rest-endpoint-methods": "^5.13.0",
     "@octokit/types": "^6.34.0",
     "@technote-space/filter-github-action": "^0.6.1",
     "@technote-space/github-action-helper": "^5.3.5",
     "@technote-space/github-action-log-helper": "^0.2.4",
-    "glob": "^8.0.1",
+    "glob": "^8.0.3",
     "mime": "^3.0.0"
   },
   "devDependencies": {
@@ -54,9 +54,9 @@
     "@technote-space/github-action-test-helper": "^0.9.5",
     "@technote-space/release-github-actions-cli": "^1.9.0",
     "@types/glob": "^7.2.0",
-    "@types/jest": "^27.5.0",
+    "@types/jest": "^27.5.1",
     "@types/mime": "^2.0.3",
-    "@types/node": "^17.0.31",
+    "@types/node": "^17.0.33",
     "@typescript-eslint/eslint-plugin": "^5.23.0",
     "@typescript-eslint/parser": "^5.23.0",
     "assert": "^2.0.0",
