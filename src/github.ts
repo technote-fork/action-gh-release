@@ -1,7 +1,8 @@
-import { Context } from '@actions/github/lib/context';
-import { Octokit } from '@technote-space/github-action-helper/dist/types';
-import { components } from '@octokit/openapi-types';
-import { Config, releaseBody } from './util';
+import type { Context } from '@actions/github/lib/context';
+import type { Octokit } from '@technote-space/github-action-helper/dist/types';
+import type { components } from '@octokit/openapi-types';
+import type { Config } from './util';
+import { releaseBody } from './util';
 import { lstatSync, readFileSync } from 'fs';
 import { getType } from 'mime';
 import { basename } from 'path';
