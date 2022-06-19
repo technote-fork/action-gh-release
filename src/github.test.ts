@@ -1,10 +1,10 @@
 /* eslint-disable no-magic-numbers */
-import { describe, expect, it } from 'vitest';
-import nock from 'nock';
-import path from 'path';
 import * as assert from 'assert';
-import { mimeOrDefault, asset, upload, release, GitHubReleaser } from './github';
+import path from 'path';
 import { disableNetConnect, getOctokit, generateContext, getApiFixture } from '@technote-space/github-action-test-helper';
+import nock from 'nock';
+import { describe, expect, it } from 'vitest';
+import { mimeOrDefault, asset, upload, release, GitHubReleaser } from './github';
 import { parseConfig } from './util';
 
 const octokit     = getOctokit();

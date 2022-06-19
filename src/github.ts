@@ -1,11 +1,11 @@
-import type { Context } from '@actions/github/lib/context';
-import type { Octokit } from '@technote-space/github-action-helper/dist/types';
-import type { components } from '@octokit/openapi-types';
 import type { Config } from './util';
-import { releaseBody } from './util';
+import type { Context } from '@actions/github/lib/context';
+import type { components } from '@octokit/openapi-types';
+import type { Octokit } from '@technote-space/github-action-helper/dist/types';
 import { lstatSync, readFileSync } from 'fs';
-import { getType } from 'mime';
 import { basename } from 'path';
+import { getType } from 'mime';
+import { releaseBody } from './util';
 
 type ReposListReleaseAssetsResponseData = components['schemas']['release-asset'];
 type ReposUploadReleaseAssetResponseData = components['schemas']['release-asset'];

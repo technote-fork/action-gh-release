@@ -1,7 +1,7 @@
 /* eslint-disable no-magic-numbers */
-import { describe, expect, it } from 'vitest';
-import path from 'path';
 import * as assert from 'assert';
+import path from 'path';
+import { describe, expect, it } from 'vitest';
 import { isTag, paths, parseConfig, parseInputFiles, releaseBody } from './util';
 
 const fixturesDir = path.resolve(__dirname, 'fixtures');
