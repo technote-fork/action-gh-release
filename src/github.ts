@@ -190,7 +190,7 @@ export const upload = async(
   })).data;
 };
 
-const getRelease = async(tag: string, config: Config, context: Context, releaser: Releaser): Promise<ReposListReleasesResponseData | ReposGetReleaseByTagResponseData> => {
+const getRelease = async(tag: string, context: Context, releaser: Releaser): Promise<ReposListReleasesResponseData | ReposGetReleaseByTagResponseData> => {
   // you can't get a an existing draft by tag
   // so we must find one in the list of all releases
   const releases = await releaser.allReleases({
@@ -214,7 +214,7 @@ export const release = async(
 ): Promise<Release> => {
   const tag = config.github_ref.replace('refs/tags/', '');
   try {
-    const release = await getRelease(tag, config, context, releaser);
+    const release = await getRelease(tag, context, releaser);
     if (config.input_update_draft_flag && config.input_update_draft_mode !== release.draft) {
       return await releaser.updateRelease({
         ...context.repo,

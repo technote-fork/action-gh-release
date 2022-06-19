@@ -28,29 +28,31 @@
     "action.yml"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "rm -rdf lib && rollup -c",
     "cover": "vitest run --coverage",
     "lint": "eslint 'src/**/*.ts' --cache",
     "lint:fix": "eslint --fix 'src/**/*.ts'",
     "release": "yarn release-ga --test",
-    "test": "yarn lint && yarn cover",
+    "test": "yarn lint && yarn typecheck && yarn cover",
+    "typecheck": "tsc --noEmit",
     "update": "npm_config_yes=true npx npm-check-updates -u --timeout 100000 && yarn install && yarn upgrade && yarn audit"
   },
-  "dependencies": {
+  "devDependencies": {
     "@actions/core": "^1.9.0",
     "@actions/github": "^5.0.3",
+    "@commitlint/cli": "^17.0.2",
+    "@commitlint/config-conventional": "^17.0.2",
     "@octokit/plugin-paginate-rest": "^2.18.0",
     "@octokit/plugin-rest-endpoint-methods": "^5.14.0",
     "@octokit/types": "^6.35.0",
+    "@rollup/plugin-commonjs": "^22.0.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "@rollup/plugin-typescript": "^8.3.3",
+    "@sindresorhus/tsconfig": "^3.0.1",
     "@technote-space/filter-github-action": "^0.6.2",
     "@technote-space/github-action-helper": "^5.3.7",
     "@technote-space/github-action-log-helper": "^0.2.5",
-    "glob": "^8.0.3",
-    "mime": "^3.0.0"
-  },
-  "devDependencies": {
-    "@commitlint/cli": "^17.0.2",
-    "@commitlint/config-conventional": "^17.0.2",
     "@technote-space/github-action-test-helper": "^0.9.7",
     "@technote-space/release-github-actions-cli": "^1.9.0",
     "@types/glob": "^7.2.0",
@@ -62,9 +64,12 @@
     "c8": "^7.11.3",
     "eslint": "^8.18.0",
     "eslint-plugin-import": "^2.26.0",
+    "glob": "^8.0.3",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.2",
+    "mime": "^3.0.0",
     "nock": "^13.2.7",
+    "rollup": "^2.75.6",
     "typescript": "^4.7.4",
     "vitest": "^0.15.1"
   }
