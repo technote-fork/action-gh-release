@@ -3,9 +3,9 @@ import { describe, expect, it } from 'vitest';
 import nock from 'nock';
 import path from 'path';
 import * as assert from 'assert';
-import {mimeOrDefault, asset, upload, release, GitHubReleaser} from '../src/github';
-import {disableNetConnect, getOctokit, generateContext, getApiFixture} from '@technote-space/github-action-test-helper';
-import {parseConfig} from '../src/util';
+import { mimeOrDefault, asset, upload, release, GitHubReleaser } from './github';
+import { disableNetConnect, getOctokit, generateContext, getApiFixture } from '@technote-space/github-action-test-helper';
+import { parseConfig } from './util';
 
 const octokit     = getOctokit();
 const context     = generateContext({
@@ -28,7 +28,7 @@ describe('mimeOrDefault', () => {
 
 describe('asset', () => {
   it('derives asset info from a path', async() => {
-    const {name, mime, size, file} = asset(path.join(fixturesDir, 'data/foo/bar.txt'));
+    const { name, mime, size, file } = asset(path.join(fixturesDir, 'data/foo/bar.txt'));
     assert.strictEqual(name, 'bar.txt');
     assert.strictEqual(mime, 'text/plain');
     assert.strictEqual(size, 10);
@@ -270,7 +270,7 @@ describe('GitHubReleaser', () => {
         .get('/repos/hello/world/releases')
         .reply(200, getApiFixture(fixturesDir, 'repos.releases.list'));
 
-      const releases = await releaser.allReleases({...context.repo});
+      const releases = await releaser.allReleases({ ...context.repo });
 
       expect(releases).toHaveLength(3);
     });

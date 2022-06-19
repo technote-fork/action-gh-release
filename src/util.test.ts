@@ -2,7 +2,7 @@
 import { describe, expect, it } from 'vitest';
 import path from 'path';
 import * as assert from 'assert';
-import {isTag, paths, parseConfig, parseInputFiles, releaseBody} from '../src/util';
+import { isTag, paths, parseConfig, parseInputFiles, releaseBody } from './util';
 
 const fixturesDir = path.resolve(__dirname, 'fixtures');
 

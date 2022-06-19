@@ -1,5 +1,5 @@
 import * as glob from 'glob';
-import {lstatSync, readFileSync} from 'fs';
+import { lstatSync, readFileSync } from 'fs';
 
 export interface Config {
   'github_ref': string;

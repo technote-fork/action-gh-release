@@ -1,10 +1,10 @@
-import {Context} from '@actions/github/lib/context';
-import {Octokit} from '@technote-space/github-action-helper/dist/types';
-import {components} from '@octokit/openapi-types';
-import {Config, releaseBody} from './util';
-import {lstatSync, readFileSync} from 'fs';
-import {getType} from 'mime';
-import {basename} from 'path';
+import { Context } from '@actions/github/lib/context';
+import { Octokit } from '@technote-space/github-action-helper/dist/types';
+import { components } from '@octokit/openapi-types';
+import { Config, releaseBody } from './util';
+import { lstatSync, readFileSync } from 'fs';
+import { getType } from 'mime';
+import { basename } from 'path';
 
 type ReposListReleaseAssetsResponseData = components['schemas']['release-asset'];
 type ReposUploadReleaseAssetResponseData = components['schemas']['release-asset'];
@@ -155,7 +155,7 @@ export const upload = async(
   release: Release,
   path: string,
 ): Promise<ReposUploadReleaseAssetResponseData> => {
-  const {name, size, mime, file} = asset(path);
+  const { name, size, mime, file } = asset(path);
   console.log(`⬆️ Uploading ${name}...`);
 
   const assets: Array<ReposListReleaseAssetsResponseData> = await octokit.paginate(
