@@ -1,10 +1,11 @@
-import {Context} from '@actions/github/lib/context';
-import {Octokit} from '@technote-space/github-action-helper/dist/types';
-import {components} from '@octokit/openapi-types';
-import {Config, releaseBody} from './util';
-import {lstatSync, readFileSync} from 'fs';
-import {getType} from 'mime';
-import {basename} from 'path';
+import type { Config } from './util';
+import type { Context } from '@actions/github/lib/context';
+import type { components } from '@octokit/openapi-types';
+import type { Octokit } from '@technote-space/github-action-helper/dist/types';
+import { lstatSync, readFileSync } from 'fs';
+import { basename } from 'path';
+import { getType } from 'mime';
+import { releaseBody } from './util';
 
 type ReposListReleaseAssetsResponseData = components['schemas']['release-asset'];
 type ReposUploadReleaseAssetResponseData = components['schemas']['release-asset'];
@@ -155,7 +156,7 @@ export const upload = async(
   release: Release,
   path: string,
 ): Promise<ReposUploadReleaseAssetResponseData> => {
-  const {name, size, mime, file} = asset(path);
+  const { name, size, mime, file } = asset(path);
   console.log(`⬆️ Uploading ${name}...`);
 
   const assets: Array<ReposListReleaseAssetsResponseData> = await octokit.paginate(
@@ -189,7 +190,7 @@ export const upload = async(
   })).data;
 };
 
-const getRelease = async(tag: string, config: Config, context: Context, releaser: Releaser): Promise<ReposListReleasesResponseData | ReposGetReleaseByTagResponseData> => {
+const getRelease = async(tag: string, context: Context, releaser: Releaser): Promise<ReposListReleasesResponseData | ReposGetReleaseByTagResponseData> => {
   // you can't get a an existing draft by tag
   // so we must find one in the list of all releases
   const releases = await releaser.allReleases({
@@ -213,7 +214,7 @@ export const release = async(
 ): Promise<Release> => {
   const tag = config.github_ref.replace('refs/tags/', '');
   try {
-    const release = await getRelease(tag, config, context, releaser);
+    const release = await getRelease(tag, context, releaser);
     if (config.input_update_draft_flag && config.input_update_draft_mode !== release.draft) {
       return await releaser.updateRelease({
         ...context.repo,
