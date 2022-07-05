@@ -42,9 +42,9 @@
     "@actions/github": "^5.0.3",
     "@commitlint/cli": "^17.0.3",
     "@commitlint/config-conventional": "^17.0.3",
-    "@octokit/plugin-paginate-rest": "^2.21.0",
-    "@octokit/plugin-rest-endpoint-methods": "^5.16.0",
-    "@octokit/types": "^6.38.1",
+    "@octokit/plugin-paginate-rest": "^2.21.1",
+    "@octokit/plugin-rest-endpoint-methods": "^5.16.1",
+    "@octokit/types": "^6.39.0",
     "@rollup/plugin-commonjs": "^22.0.1",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^13.3.0",
@@ -57,9 +57,9 @@
     "@technote-space/release-github-actions-cli": "^1.9.0",
     "@types/glob": "^7.2.0",
     "@types/mime": "^2.0.3",
-    "@types/node": "^18.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.30.3",
-    "@typescript-eslint/parser": "^5.30.3",
+    "@types/node": "^18.0.1",
+    "@typescript-eslint/eslint-plugin": "^5.30.5",
+    "@typescript-eslint/parser": "^5.30.5",
     "assert": "^2.0.0",
     "c8": "^7.11.3",
     "eslint": "^8.19.0",
@@ -71,6 +71,6 @@
     "nock": "^13.2.8",
     "rollup": "^2.75.7",
     "typescript": "^4.7.4",
-    "vitest": "^0.16.0"
+    "vitest": "^0.17.0"
   }
 }
