@@ -3,11 +3,11 @@ import type { Config } from './util';
 import type { Context } from '@actions/github/lib/context';
 import type { components } from '@octokit/openapi-types';
 import type { Octokit } from '@technote-space/github-action-helper/dist/types';
-declare type ReposUploadReleaseAssetResponseData = components['schemas']['release-asset'];
-declare type ReposListReleasesResponseData = components['schemas']['release'];
-declare type ReposCreateReleaseResponseData = components['schemas']['release'];
-declare type ReposUpdateReleaseResponseData = components['schemas']['release'];
-declare type ReposGetReleaseByTagResponseData = components['schemas']['release'];
+type ReposUploadReleaseAssetResponseData = components['schemas']['release-asset'];
+type ReposListReleasesResponseData = components['schemas']['release'];
+type ReposCreateReleaseResponseData = components['schemas']['release'];
+type ReposUpdateReleaseResponseData = components['schemas']['release'];
+type ReposGetReleaseByTagResponseData = components['schemas']['release'];
 export interface ReleaseAsset {
     name: string;
     mime: string;

@@ -9,7 +9,7 @@ export interface Config {
     'input_update_draft_mode'?: boolean;
     'input_prerelease'?: boolean;
 }
-declare type Env = {
+type Env = {
     [key: string]: string | undefined;
 };
 export declare const parseInputFiles: (files: string) => string[];
