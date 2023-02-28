@@ -57,20 +57,20 @@
     "@technote-space/release-github-actions-cli": "^1.9.5",
     "@types/glob": "^8.1.0",
     "@types/mime": "^3.0.1",
-    "@types/node": "^18.14.1",
-    "@typescript-eslint/eslint-plugin": "^5.53.0",
-    "@typescript-eslint/parser": "^5.53.0",
-    "@vitest/coverage-c8": "^0.28.5",
+    "@types/node": "^18.14.2",
+    "@typescript-eslint/eslint-plugin": "^5.54.0",
+    "@typescript-eslint/parser": "^5.54.0",
+    "@vitest/coverage-c8": "^0.29.1",
     "assert": "^2.0.0",
-    "eslint": "^8.34.0",
+    "eslint": "^8.35.0",
     "eslint-plugin-import": "^2.27.5",
-    "glob": "^8.1.0",
+    "glob": "^9.0.1",
     "husky": "^8.0.3",
     "lint-staged": "^13.1.2",
     "mime": "^3.0.0",
     "nock": "^13.3.0",
-    "rollup": "^3.17.2",
+    "rollup": "^3.17.3",
     "typescript": "^4.9.5",
-    "vitest": "^0.28.5"
+    "vitest": "^0.29.1"
   }
 }
