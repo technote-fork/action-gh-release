@@ -58,19 +58,19 @@
     "@types/glob": "^8.1.0",
     "@types/mime": "^3.0.1",
     "@types/node": "^18.15.11",
-    "@typescript-eslint/eslint-plugin": "^5.57.1",
-    "@typescript-eslint/parser": "^5.57.1",
-    "@vitest/coverage-c8": "^0.29.8",
+    "@typescript-eslint/eslint-plugin": "^5.58.0",
+    "@typescript-eslint/parser": "^5.58.0",
+    "@vitest/coverage-c8": "^0.30.0",
     "assert": "^2.0.0",
     "eslint": "^8.38.0",
     "eslint-plugin-import": "^2.27.5",
-    "glob": "^9.3.4",
+    "glob": "^10.0.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.1",
     "mime": "^3.0.0",
     "nock": "^13.3.0",
     "rollup": "^3.20.2",
     "typescript": "^5.0.4",
-    "vitest": "^0.29.8"
+    "vitest": "^0.30.0"
   }
 }
