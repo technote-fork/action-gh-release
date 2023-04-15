@@ -40,12 +40,12 @@
   "devDependencies": {
     "@actions/core": "^1.10.0",
     "@actions/github": "^5.1.1",
-    "@commitlint/cli": "^17.5.1",
-    "@commitlint/config-conventional": "^17.4.4",
+    "@commitlint/cli": "^17.6.1",
+    "@commitlint/config-conventional": "^17.6.1",
     "@octokit/plugin-paginate-rest": "^6.0.0",
     "@octokit/plugin-rest-endpoint-methods": "^7.0.1",
     "@octokit/types": "^9.0.0",
-    "@rollup/plugin-commonjs": "^24.0.1",
+    "@rollup/plugin-commonjs": "^24.1.0",
     "@rollup/plugin-json": "^6.0.0",
     "@rollup/plugin-node-resolve": "^15.0.2",
     "@rollup/plugin-typescript": "^11.1.0",
@@ -60,17 +60,17 @@
     "@types/node": "^18.15.11",
     "@typescript-eslint/eslint-plugin": "^5.58.0",
     "@typescript-eslint/parser": "^5.58.0",
-    "@vitest/coverage-c8": "^0.30.0",
+    "@vitest/coverage-c8": "^0.30.1",
     "assert": "^2.0.0",
     "eslint": "^8.38.0",
     "eslint-plugin-import": "^2.27.5",
-    "glob": "^10.0.0",
+    "glob": "^10.1.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.1",
     "mime": "^3.0.0",
     "nock": "^13.3.0",
     "rollup": "^3.20.2",
     "typescript": "^5.0.4",
-    "vitest": "^0.30.0"
+    "vitest": "^0.30.1"
   }
 }
