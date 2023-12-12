@@ -58,8 +58,8 @@
     "@types/glob": "^8.1.0",
     "@types/mime": "^3.0.4",
     "@types/node": "^20.10.4",
-    "@typescript-eslint/eslint-plugin": "^6.13.2",
-    "@typescript-eslint/parser": "^6.13.2",
+    "@typescript-eslint/eslint-plugin": "^6.14.0",
+    "@typescript-eslint/parser": "^6.14.0",
     "@vitest/coverage-c8": "^0.33.0",
     "assert": "^2.1.0",
     "eslint": "^8.55.0",
@@ -69,8 +69,8 @@
     "lint-staged": "^15.2.0",
     "mime": "^4.0.0",
     "nock": "^13.4.0",
-    "rollup": "^4.7.0",
+    "rollup": "^4.8.0",
     "typescript": "^5.3.3",
-    "vitest": "^1.0.2"
+    "vitest": "^1.0.4"
   }
 }
